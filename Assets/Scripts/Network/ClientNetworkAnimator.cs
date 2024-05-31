@@ -2,7 +2,7 @@
 
 namespace Network
 {
-    public class ClientNetworkTransform : NetworkTransform
+    public class ClientNetworkAnimator : NetworkAnimator
     {
         protected override bool OnIsServerAuthoritative() => false;
     }
