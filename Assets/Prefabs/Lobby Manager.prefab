@@ -1,0 +1,94 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8379217208130091331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 431134340003428765}
+  - component: {fileID: 5851950234758333439}
+  - component: {fileID: 1348872352128374554}
+  m_Layer: 0
+  m_Name: Lobby Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &431134340003428765
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8379217208130091331}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5851950234758333439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8379217208130091331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2649794497
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &1348872352128374554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8379217208130091331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c3f9b8e9764a1095a9a1461901b661, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charactersData:
+  - {fileID: 11400000, guid: 821bba8303a956840a35b303785d29c8, type: 2}
+  - {fileID: 11400000, guid: 944eda446edcfac4ba81ece3451c9821, type: 2}
+  characterContainer:
+  - imageContainer: {fileID: 0}
+    readyState: {fileID: 0}
+    clientBadge: {fileID: 0}
+    playerIcon: {fileID: 0}
+  - imageContainer: {fileID: 0}
+    readyState: {fileID: 0}
+    clientBadge: {fileID: 0}
+    playerIcon: {fileID: 0}
+  m_readyButton: {fileID: 0}
+  m_cancelButton: {fileID: 0}
+  m_nextScene: Main
+  m_clientColor: {r: 1, g: 0.92549026, b: 0.13725491, a: 1}
+  m_playerColor: {r: 0.19607845, g: 0.9294118, b: 0.9607844, a: 1}
+  m_playerStates:
+  - playerState: 0
+    playerObject: {fileID: 0}
+    clientId: 0
+  - playerState: 0
+    playerObject: {fileID: 0}
+    clientId: 0
+  m_playerPrefab: {fileID: 682108306291269548, guid: dcb3be8918c5962419c32ae75c860775, type: 3}
+  debug: 0

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f615259b8d2e47fc96a2b51e95631476, type: 3}
+  m_Name: BananaBoy
+  m_EditorClassIdentifier: 
+  characterSprite: {fileID: -6367560908665664636, guid: 40de9a8703e2e5a47882b0b86451c741, type: 3}
+  iconSprite: {fileID: -5728686177044832811, guid: b1f24b3bc2e2f1d4b858657ad5c115a0, type: 3}
+  characterType: 1
+  playerPrefab: {fileID: 5984515635285111238, guid: 46cb58738e498884cb20338d4c2ac962, type: 3}
+  clientId: 0
+  playerId: -1
+  wasLockedIn: 0
+  totalScore: 0
