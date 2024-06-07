@@ -2476,7 +2476,7 @@ MonoBehaviour:
   username: {fileID: 838973623}
   password: {fileID: 480663591}
   confirmPassword: {fileID: 1572697369}
-  url: http://localhost:3000/unity/api/signup.php
+  url: 
 --- !u!4 &1607254122
 Transform:
   m_ObjectHideFlags: 0

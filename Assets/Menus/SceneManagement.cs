@@ -45,10 +45,20 @@ public class SceneManagement : NetworkBehaviour
     public void TryLogin(LoginAuth auth)
     {
         LoginMode = LoginContext.Login;
-        StartCoroutine(LoginCo(auth));
+
+        if (auth.Authenticate())
+        {
+            LoginSuccessful(auth.username.text);
+        }
+        else
+        {
+            auth.error.gameObject.SetActive(true);
+        }
+        
+        //StartCoroutine(LoginCo(auth));
     }
 
-    private IEnumerator LoginCo(LoginAuth auth)
+    /*private IEnumerator LoginCo(LoginAuth auth)
     {
         bool? result = null;
         yield return StartCoroutine(auth.Authenticate((res) => result = res));
@@ -61,7 +71,7 @@ public class SceneManagement : NetworkBehaviour
         {
             auth.error.gameObject.SetActive(true);
         }
-    }
+    }*/
 
     public void LoginSuccessful(string user)
     {

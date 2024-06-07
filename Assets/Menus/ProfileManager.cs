@@ -1,9 +1,6 @@
 ﻿using System.Collections;
-using Newtonsoft.Json.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Networking;
-
 
 namespace DefaultNamespace
 {
@@ -15,14 +12,40 @@ namespace DefaultNamespace
         public TMP_Text totalScore;
         public TMP_Text username;
         public string url;
+        
+        private DatabaseManager _dbManager;
 
         private IEnumerator Start()
         {
             yield return new WaitUntil(() => SceneManagement.Instance != null);
+            _dbManager = FindObjectOfType<DatabaseManager>();
             FetchProfile();
         }
-
+        
         public void FetchProfile()
+        {
+            UserProfile? profile = _dbManager.GetUserProfile(SceneManagement.Instance.LoggedInUser);
+            
+            if (profile != null)
+            {
+                username.text = profile.Value.Username;
+                matchesPlayed.text = profile.Value.MatchesPlayed.ToString();
+                wins.text = profile.Value.Wins.ToString();
+                losses.text = profile.Value.Losses.ToString();
+                totalScore.text = profile.Value.TotalScore.ToString();
+            }
+            else
+            {
+                Debug.LogError("Profile loading failed");
+            }
+        }
+        
+        public void ReturnToMain()
+        {
+            SceneManagement.Instance.GoToMainMenu();
+        }
+
+        /*public void FetchProfile()
         {
             StartCoroutine(FetchProfileCo());
         }
@@ -52,6 +75,6 @@ namespace DefaultNamespace
                     totalScore.text = profile["total_score"]?.ToString();
                 }
             }
-        }
+        }*/
     }
 }

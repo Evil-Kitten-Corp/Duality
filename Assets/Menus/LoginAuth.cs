@@ -12,7 +12,29 @@ namespace DefaultNamespace
         public TMP_InputField password;
         public string url;
         
-        private WWWForm _form;
+        private DatabaseManager dbManager;
+
+        void Start()
+        {
+            dbManager = FindObjectOfType<DatabaseManager>();
+        }
+
+        public bool Authenticate()
+        {
+            string username = this.username.text;
+            string password = this.password.text;
+
+            if (dbManager.Login(username, password))
+            {
+                error.text = "Login successful!";
+                return true;
+            }
+
+            error.text = "Invalid username or password!";
+            return false;
+        }
+        
+        /*private WWWForm _form;
 
         public IEnumerator Authenticate(System.Action<bool?> callback)
         {
@@ -42,6 +64,6 @@ namespace DefaultNamespace
                     }
                 }
             }
-        }
+        }*/
     }
 }

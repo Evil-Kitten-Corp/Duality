@@ -16,8 +16,51 @@ public class SignupManager : MonoBehaviour
     {
         SceneManagement.Instance.LoadSceneAs("Bootstrap", null);
     }
+    
+    private DatabaseManager dbManager;
 
-    private IEnumerator SignUp(Action<bool?> callback)
+    void Start()
+    {
+        dbManager = FindObjectOfType<DatabaseManager>();
+    }
+
+    public void ValidateRegister()
+    {
+        string username = this.username.text;
+        string password = this.password.text;
+        string confirmPassword = this.confirmPassword.text;
+
+        if (password != confirmPassword)
+        {
+            errorText.text = "Passwords do not match!";
+            return;
+        }
+
+        string hashedPassword = Sha1Hash(password);
+
+        if (dbManager.Register(username, hashedPassword))
+        {
+            errorText.text = "Registration successful!";
+            SceneManagement.Instance.LoginSuccessful(username);
+        }
+        else
+        {
+            errorText.text = "Username already exists!";
+        }
+    }
+
+    private string Sha1Hash(string input)
+    {
+        using (var sha1 = System.Security.Cryptography.SHA1.Create())
+        {
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(input);
+            byte[] hashBytes = sha1.ComputeHash(bytes);
+
+            return System.BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+        }
+    }
+
+    /*private IEnumerator SignUp(Action<bool?> callback)
     {
         if (password.text != confirmPassword.text)
         {
@@ -71,5 +114,5 @@ public class SignupManager : MonoBehaviour
         {
             SceneManagement.Instance.LoginSuccessful(username.text);
         }
-    }
+    }*/
 }

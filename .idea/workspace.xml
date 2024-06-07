@@ -2,13 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2016ab41-a89a-4dc4-aa60-cd922c0b9043" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Menus/ProfileManager.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Menus/ProfileManager.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Menus/SignupAuth.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Menus/SignupAuth.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Menus/DatabaseManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Menus/DatabaseManager.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Menus/LoginAuth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Menus/LoginAuth.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Menus/SceneManagement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Menus/SceneManagement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Menus/SignupAuth.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Menus/SignupAuth.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Menus/SignupManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Menus/SignupManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Bootstrap.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Bootstrap.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Profile.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Profile.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Signup.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Signup.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/DualCharacter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Players/DualCharacter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Players/DualChoice.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Players/DualChoice.cs" afterDir="false" />
@@ -21,11 +24,8 @@
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Test/PlayerCharacter.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Test/PlayerCharacter.cs.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Try/SpawnRealPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Try/SpawnRealPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/___PhpServer_www-unity_api/__database__.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/___PhpServer_www-unity_api/db.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/___PhpServer_www-unity_api/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/___PhpServer_www/unity/api/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/___PhpServer_www/unity/api/db.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +59,7 @@
       <option name="presentableId" value="Default" />
       <updated>1717770619559</updated>
       <workItem from="1717770622779" duration="48000" />
-      <workItem from="1717770704840" duration="5388000" />
+      <workItem from="1717770704840" duration="7178000" />
     </task>
     <servers />
   </component>
