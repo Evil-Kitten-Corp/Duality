@@ -29,6 +29,7 @@ public class SceneManagement : NetworkBehaviour
     
     public LoginContext? LoginMode { get; private set; }
     public bool IsLoggedIn { get; private set; }
+    public string LoggedInUser { get; private set; }
 
     private void Start()
     {
@@ -54,7 +55,7 @@ public class SceneManagement : NetworkBehaviour
 
         if (result == true)
         {
-            LoginSuccessful();
+            LoginSuccessful(auth.username.text);
         }
         else
         {
@@ -62,8 +63,9 @@ public class SceneManagement : NetworkBehaviour
         }
     }
 
-    public void LoginSuccessful()
+    public void LoginSuccessful(string user)
     {
+        LoggedInUser = user;
         IsLoggedIn = true;
         GoToMainMenu();
     }

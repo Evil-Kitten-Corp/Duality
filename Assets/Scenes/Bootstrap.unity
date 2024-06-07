@@ -3046,9 +3046,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb9ae6c9123843de8b4d1de2a01b0b0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  error: {fileID: 970333981}
+  error: {fileID: 970333983}
   username: {fileID: 397460815}
   password: {fileID: 85220039}
+  url: http://localhost:3000/unity/api/
 --- !u!1 &1936575410
 GameObject:
   m_ObjectHideFlags: 0
