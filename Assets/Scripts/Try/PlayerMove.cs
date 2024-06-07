@@ -31,7 +31,7 @@ namespace Try
         private int _jumpAttempts = 1;
         private bool _canJump = true;
 
-        private readonly NetworkVariable<bool> _isFacingRight = new(true, 
+        private readonly NetworkVariable<bool> _isFacingRight = new(false, 
             NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         public FruitType fruit;
@@ -132,6 +132,14 @@ namespace Try
             rb.gravityScale = 0.1f;
             _canControl = false;
             anim.SetTrigger(Death);
+        }
+
+        public void Revive(Vector3 pos)
+        {
+            transform.position = pos;
+            //rb.velocity = Vector2.zero;
+            rb.gravityScale = 3;
+            _canControl = true;
         }
         
         private void OnUIButtonPress(GameControllerButton.ButtonType buttonType)

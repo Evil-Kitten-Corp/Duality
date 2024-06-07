@@ -17,13 +17,15 @@ namespace Try
             {
                 FindObjectOfType<SpawnRealPlayer>().AddScore(team);
                 //ps.AddScore();
-                NetworkObject.Despawn();
+                //NetworkObject.Despawn();
+                gameObject.SetActive(false);
             }
             else if (col.TryGetComponent(out PlayerMove pm) && pm.fruit == team)
             {
                 FindObjectOfType<SpawnRealPlayer>().AddScore(team);
                 //pm.GetComponent<PlayerScore>().AddScore();
-                NetworkObject.Despawn();
+                //NetworkObject.Despawn();
+                gameObject.SetActive(false);
             }
         }
     }

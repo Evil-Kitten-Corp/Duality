@@ -36,7 +36,8 @@ namespace Try
         [ServerRpc(RequireOwnership = false)]
         private void NotifyServerOfCollisionServerRpc(ulong playerNetworkObjectId)
         {
-            if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(playerNetworkObjectId, out var playerObject))
+            if (NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(playerNetworkObjectId, 
+                    out var playerObject))
             {
                 if (playerObject.TryGetComponent(out PlayerMove pm))
                 {

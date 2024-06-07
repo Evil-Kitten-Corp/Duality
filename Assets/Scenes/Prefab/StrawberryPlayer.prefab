@@ -119,7 +119,7 @@ Transform:
   m_GameObject: {fileID: 7953270350638203389}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.17, y: 0, z: 0}
+  m_LocalPosition: {x: 5.66, y: -3.4799995, z: 0.048759975}
   m_LocalScale: {x: 5.39, y: 5.39, z: 5.39}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -195,7 +195,7 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
+  SceneMigrationSynchronization: 0
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1

@@ -21,9 +21,7 @@ namespace DefaultNamespace
             isLoading = true;
             Debug.Log("Loading screen started."); 
             yield return new WaitForSeconds(timeout);
-            Debug.Log("Loading screen timeout completed."); 
-            //OnLoad?.Invoke();
-            //OnLoad = null;
+            Debug.Log("Loading screen timeout completed.");
         }
     }
 }

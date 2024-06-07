@@ -34,7 +34,8 @@ public class MainMenuOptions : MonoBehaviour
 
     public void StartClient()
     {
-        StartCoroutine(TryStartClient());
+        SceneManagement.Instance.LoadSceneAs(nextScene, "client");
+        //StartCoroutine(TryStartClient());
     }
 
     private IEnumerator TryStartClient()
@@ -69,7 +70,6 @@ public class MainMenuOptions : MonoBehaviour
             // Failed to connect to a server
             clientWarning.SetActive(true);
             loading.SetActive(false);
-            NetworkManager.Singleton.Shutdown();
         }
     }
 

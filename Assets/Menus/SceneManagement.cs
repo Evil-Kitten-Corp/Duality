@@ -30,8 +30,6 @@ public class SceneManagement : NetworkBehaviour
     public LoginContext? LoginMode { get; private set; }
     public bool IsLoggedIn { get; private set; }
 
-    private bool isRestarting;
-
     private void Start()
     {
         LoginMode = null;
@@ -70,16 +68,7 @@ public class SceneManagement : NetworkBehaviour
 
     public void RestartActiveScene()
     {
-        if (isRestarting)
-        {
-            Debug.LogWarning("RestartActiveScene is already in progress.");
-            return;
-        }
-
-        isRestarting = true;
-        
         Debug.Log("Restarting scene.");
-        
         ReloadScene("host");
         
         /*SceneManager.LoadSceneAsync("Loading").completed += _ =>
@@ -190,7 +179,6 @@ public class SceneManagement : NetworkBehaviour
                 break;
             
             case "host": 
-                Debug.Log("Restarting as host.");
                 NetworkManager.Singleton.StartHost();
                 break;
             
@@ -202,8 +190,6 @@ public class SceneManagement : NetworkBehaviour
                 Debug.LogError("Invalid mode specified.");
                 break;
         }
-        
-        isRestarting = false;
     }
 
     /*public void NetworkLoadScene(string name, string mode)
