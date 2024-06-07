@@ -44,14 +44,21 @@ public class SceneManagement : NetworkBehaviour
     public void TryLogin(LoginAuth auth)
     {
         LoginMode = LoginContext.Login;
+        StartCoroutine(LoginCo(auth));
+    }
 
-        if (auth.Authenticate())
+    private IEnumerator LoginCo(LoginAuth auth)
+    {
+        bool? result = null;
+        yield return StartCoroutine(auth.Authenticate((res) => result = res));
+
+        if (result == true)
         {
             LoginSuccessful();
         }
         else
         {
-            auth.error.SetActive(true);
+            auth.error.gameObject.SetActive(true);
         }
     }
 
