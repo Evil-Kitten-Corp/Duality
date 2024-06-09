@@ -208,18 +208,22 @@ cmd.CommandText = @"
 
 ## Network Architecture
 
-[TBI]
+![](Diagrams/architecture2.png)
+
+## Game Scene Flow Architecture
+
+![](Diagrams/sceneflow.png)
 
 ## Considerations
 
-Although an enjoyable project, I have faced some difficulties on the making of this project. Below are some of the key attempts and considerations:
+Although an enjoyable project to make, I have faced some difficulties on the making of this project. Below are some of the key attempts and considerations:
 - Creating a PHP server to use with MySQL for the login.
   - The initial plan included creating a PHP server to handle user login through MySQL. Due to unfamiliarity with the PHP language itself and also due to the complexity it would put on the user to run (e.g., the user would have to install PHP, configure a local server, install MySQL, manage a server database, and update the PHP script with the correct local MySQL credentials or alter them to fit the script), this approach was ultimately abandoned.
 - Implementing a hosting lobby.
   - This was implemented almost to its full completion in earlier versions, following the Galactic Kittens educational demo (referenced in the Bibliography) sample. However, since it didn't properly fit the game, as we only have two players, the need for a lobby was insignificant, so it was removed from the final version.
   - The educational demo is still cited in the Bibliography, as reading through its Github repository provided some valuable insights on how to best structure the game to use _Netcode_.
 - Full code separation on Client/Server
-  - Although some of it still managed to make it into the final version with, full separation, while definitely more valuable in a real case scenario, made the code be full of callbacks, which made some parts of the code that should be trivial, too complex. Furthermore, separating the code into Client/Server classes required implementing bridges and abstractions, which would further complicate already tightly coupled classes. For these reasons, this approach was scrapped.
+  - Although some of it still managed to make it into the final version, full separation, while definitely more valuable in a real case scenario, made the code be full of callbacks, which made some parts of the code that should be trivial, too complex. Furthermore, separating the code into Client/Server classes led to the surge of too many circular dependencies, which would further complicate already tightly coupled classes. For these reasons, this approach was scrapped.
 
 ## Bibliography
 
