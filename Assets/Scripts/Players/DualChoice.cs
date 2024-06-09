@@ -1,5 +1,6 @@
 ﻿public enum DualChoice
 {
-    FireElemental,
-    WaterElemental
+    BananaBoy,
+    StrawberryBoy,
+    Spectator
 }

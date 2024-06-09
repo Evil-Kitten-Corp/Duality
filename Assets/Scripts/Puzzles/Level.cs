@@ -8,5 +8,6 @@ namespace Puzzles
     {
         public Transform waterSpawnPoint;
         public Transform fireSpawnPoint;
+        public string nextLevelName;
     }
 }

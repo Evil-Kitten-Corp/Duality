@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
-using Utils;
+using UnityEngine.Serialization;
+using UnityEngine.Tilemaps;
 
 namespace Puzzles
 {
@@ -8,28 +9,37 @@ namespace Puzzles
     public class LiquidPath : MonoBehaviour
     {
         public DualChoice type;
-        public SpriteRenderer spriteRenderer;
+        [FormerlySerializedAs("spriteRenderer")] public Tilemap tilemapRenderer;
         
-        private DualGlobalData _globals;
+        public DualGlobalData globals;
+        public bool debug;
 
         private void Start()
         {
-            _globals = this.GetGlobalData();
-        
-            if (_globals == null)
+            if (globals == null)
             {
                 Debug.LogError("Couldn't find globals in Resource folder!");
             }
 
             switch (type)
             {
-                case DualChoice.FireElemental:
-                    spriteRenderer.color = Color.red;
-                    gameObject.layer = _globals.fireElementalAffinities;
+                case DualChoice.BananaBoy:
+                    
+                    if (debug)
+                    {
+                        tilemapRenderer.color = Color.red;
+                    }
+
+                    gameObject.layer = LayerMask.NameToLayer(globals.fireElementalLayer);
                     break;
-                case DualChoice.WaterElemental:
-                    spriteRenderer.color = Color.blue;
-                    gameObject.layer = _globals.waterElementalAffinities;
+                case DualChoice.StrawberryBoy:
+                    
+                    if (debug)
+                    {
+                        tilemapRenderer.color = Color.blue;
+                    }
+                    
+                    gameObject.layer = LayerMask.NameToLayer(globals.waterElementalLayer);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
