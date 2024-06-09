@@ -6,6 +6,11 @@ Duality is a two-player LAN online co-op game, where one player plays as Strawbe
 
 The game makes use of Unity Netcode for Gameobjects for connectivity, and SQlite for the profile database.
 
+Tema usado: 
+- Unity Netcode for Game Objects
+  - (4) Implementar um jogo de acção, cliente/servidor, com login
+
+
 # Services implemented:
 - [Netcode for GameObjects](https://unity.com/pt/products/netcode)
 
