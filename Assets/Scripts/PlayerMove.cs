@@ -135,13 +135,6 @@ namespace Try
 
         public void Revive(Vector3 pos)
         {
-            Debug.Log("Calling ReviveClientRpc");
-            ReviveClientRpc(pos);
-        }
-
-        [ClientRpc]
-        private void ReviveClientRpc(Vector3 pos)
-        {
             Debug.Log("ReviveClientRpc called");
 
             if (transform == null)
@@ -166,6 +159,9 @@ namespace Try
             Debug.Log("Setting _canControl to true.");
             _canControl = true;
             Debug.Log("Player should now be controllable.");
+            
+            //alternatively
+            Teleport(pos);
         }
 
         private void OnUIButtonPress(GameControllerButton.ButtonType buttonType)
