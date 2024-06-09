@@ -15,16 +15,12 @@ namespace Try
 
             if (col.TryGetComponent(out PlayerScore ps) && ps.team == team)
             {
-                FindObjectOfType<SpawnRealPlayer>().AddScore(team);
-                //ps.AddScore();
-                //NetworkObject.Despawn();
+                FindObjectOfType<LevelController>().AddScore(team);
                 gameObject.SetActive(false);
             }
             else if (col.TryGetComponent(out PlayerMove pm) && pm.fruit == team)
             {
-                FindObjectOfType<SpawnRealPlayer>().AddScore(team);
-                //pm.GetComponent<PlayerScore>().AddScore();
-                //NetworkObject.Despawn();
+                FindObjectOfType<LevelController>().AddScore(team);
                 gameObject.SetActive(false);
             }
         }

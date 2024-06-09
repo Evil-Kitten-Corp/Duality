@@ -1,21 +1,24 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using Cinemachine;
 using Test;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 namespace Try
 {
-    public class SpawnRealPlayer : NetworkBehaviour
+    public class LevelController : NetworkBehaviour
     {
+        public CinemachineVirtualCamera cam;
+        
+        public LevelSectioner[] levels;
+        private int _lvCount;
+        private LevelSectioner _currentLevel;
+        
         public PlayerMove strawberryPlayer;
         public PlayerMove bananaPlayer;
-
-        public Transform strawberrySpawnPos;
-        public Transform bananaSpawnPos;
 
         public TMP_Text strawberryScore;
         public TMP_Text bananaScore;
@@ -26,6 +29,7 @@ namespace Try
         [Header("Images | UI")]
         public GameObject deathUI;
         public GameObject winningScreen;
+        public GameObject mainMenuScreen;
 
         public Image[] bananaBoyRestart;
         private bool _bRest;
@@ -40,6 +44,10 @@ namespace Try
         private void Start()
         {
             Debug.Log("Start being called.");
+            _currentLevel = levels[0];
+            _lvCount = 0;
+            cam.Follow = _currentLevel.cameraLookAt;
+            
             NetworkManager.OnConnectionEvent += OnClientSpawn;
             PlayerMove.OnWin += OnPlayerWin;
             
@@ -57,6 +65,26 @@ namespace Try
             };
         }
 
+        public void UpdateProfile(FruitType fruit, bool win)
+        {
+            int winsIncrement = win ? 1 : 0;
+            int lossesIncrement = win ? 0 : 1;
+
+            var db = FindObjectOfType<DatabaseManager>();
+            
+            switch (SceneManagement.Instance.IsLoggedIn)
+            {
+                case true when fruit == FruitType.Strawberry:
+                    db.UpdateUserProfile(SceneManagement.Instance.LoggedInUser, 
+                        1, winsIncrement, lossesIncrement, _strawberryScore);
+                    break;
+                case true when fruit == FruitType.Banana:
+                    db.UpdateUserProfile(SceneManagement.Instance.LoggedInUser, 
+                        1, winsIncrement, lossesIncrement, _bananaScore);
+                    break;
+            }
+        }
+
         private void OnClientSpawn(NetworkManager networkManager, ConnectionEventData connectionEventData)
         {
             if (connectionEventData.EventType == ConnectionEvent.ClientConnected)
@@ -69,8 +97,7 @@ namespace Try
                     Debug.Log($"Player {connectionEventData.ClientId} connected as strawberry boy!");
 
                     PlayerMove player = Instantiate(strawberryPlayer, Vector3.zero, Quaternion.identity);
-                    //player.OnDeath += OnPlayerDeath;
-                    player.transform.position = strawberrySpawnPos.position;
+                    player.transform.position = _currentLevel.strawberrySpawnPos.position;
                     player.GetComponent<PlayerScore>().textObject = strawberryScore;
             
                     var prefabNetworkObject = player.GetComponent<NetworkObject>();
@@ -82,8 +109,7 @@ namespace Try
                     Debug.Log($"Player {connectionEventData.ClientId} connected as banana boy!");
 
                     PlayerMove player = Instantiate(bananaPlayer, Vector3.zero, Quaternion.identity);
-                    //player.OnDeath += OnPlayerDeath;
-                    player.transform.position = bananaSpawnPos.position;
+                    player.transform.position = _currentLevel.bananaSpawnPos.position;
                     player.GetComponent<PlayerScore>().textObject = bananaScore;
             
                     var prefabNetworkObject = player.GetComponent<NetworkObject>();
@@ -100,8 +126,13 @@ namespace Try
         public void OnPlayerDeath()
         {
             Debug.Log("Player died.");
-
             StartCoroutine(DeathRoutine());
+
+            if (NetworkManager.Singleton.IsServer)
+            {
+                UpdateProfile(FruitType.Strawberry, false);
+                UpdateProfile(FruitType.Banana, false);
+            }
         }
 
         IEnumerator DeathRoutine()
@@ -114,19 +145,27 @@ namespace Try
         
         private void OnPlayerWin(FruitType team)
         {
-            if (team == FruitType.Strawberry)
+            switch (team)
             {
-                _sWin = true;
-            }
-            else if (team == FruitType.Banana)
-            {
-                _bWin = true;
+                case FruitType.Strawberry:
+                    _sWin = true;
+                    break;
+                case FruitType.Banana:
+                    _bWin = true;
+                    break;
             }
 
             if (_sWin && _bWin)
             {
                 ShowWinningScreenClientRpc();
             }
+            
+            if (NetworkManager.Singleton.IsServer)
+            {
+                UpdateProfile(FruitType.Strawberry, true);
+                UpdateProfile(FruitType.Banana, true);
+            }
+            
         }
 
         public void AddScore(FruitType team)
@@ -150,6 +189,12 @@ namespace Try
 
             SyncScoreClientRpc(team);
         }
+        
+        private bool IsThereNextLevel()
+        {
+            int test = _lvCount;
+            return test + 1 <= levels.Length;
+        }
 
         [ClientRpc]
         private void SyncScoreClientRpc(FruitType team)
@@ -168,7 +213,14 @@ namespace Try
         [ClientRpc]
         private void ShowWinningScreenClientRpc()
         {
-            winningScreen.SetActive(true);
+            if (IsThereNextLevel())
+            {
+                winningScreen.SetActive(true);
+            }
+            else
+            {
+                mainMenuScreen.SetActive(true);
+            }
         }
         
         [ClientRpc]
@@ -176,6 +228,12 @@ namespace Try
         {
             Time.timeScale = 0;
             deathUI.SetActive(true);
+        }
+        
+        [ClientRpc]
+        private void OnPlayerReviveClientRpc()
+        {
+            deathUI.SetActive(false);
         }
         
         [ClientRpc]
@@ -192,6 +250,7 @@ namespace Try
                             i.color = Color.white;
                         }
                         break;
+                    
                     case FruitType.Banana:
                         
                         foreach (var i in bananaBoyWin)
@@ -212,6 +271,7 @@ namespace Try
                             i.color = Color.white;
                         }
                         break;
+                    
                     case FruitType.Banana:
                         
                         foreach (var i in bananaBoyRestart)
@@ -226,19 +286,19 @@ namespace Try
         private void RestartScene()
         {
             Debug.Log("I've been called to restart.");
-            NetworkManager.Singleton.SceneManager.LoadScene(SceneManager.GetActiveScene().name, LoadSceneMode.Single);
+            _currentLevel.Restart(strawberryPlayer, bananaPlayer);
+            OnPlayerReviveClientRpc();
         }
 
         private void GoToNextLevel()
         {
-            /*if (nextLevel != String.Empty)
-            {
-                NetworkManager.Singleton.SceneManager.LoadScene(nextLevel, LoadSceneMode.Single);
-            }
-            else
-            {
-                ExitToMenu();
-            }*/
+            Debug.Log("Now we're going to next level.");
+            
+            _lvCount++;
+            _currentLevel = levels[_lvCount];
+            
+            _currentLevel.Restart(strawberryPlayer, bananaPlayer);
+            cam.Follow = _currentLevel.cameraLookAt;
         }
         
         public IEnumerator Restart(FruitType characterDataCharacterType)

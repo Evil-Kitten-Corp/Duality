@@ -30,7 +30,7 @@ namespace Try
         private void HandleCollision(PlayerMove pm)
         {
             pm.Die();
-            FindObjectOfType<SpawnRealPlayer>().OnPlayerDeath();
+            FindObjectOfType<LevelController>().OnPlayerDeath();
         }
 
         [ServerRpc(RequireOwnership = false)]

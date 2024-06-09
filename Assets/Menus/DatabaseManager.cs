@@ -105,7 +105,8 @@ public class DatabaseManager : MonoBehaviour
         }
     }
 
-    public void UpdateMatchesPlayed(string username)
+    public void UpdateUserProfile(string username, int matchesPlayedIncrement, int winsIncrement, int lossesIncrement, 
+        int totalScoreIncrement)
     {
         string connection = "URI=file:" + _dbPath;
         using (var conn = new SqliteConnection(connection))
@@ -113,12 +114,27 @@ public class DatabaseManager : MonoBehaviour
             conn.Open();
             using (var cmd = conn.CreateCommand())
             {
-                cmd.CommandText = "UPDATE users SET matches_played = matches_played + 1 WHERE username = @username";
+                cmd.CommandText = @"
+                UPDATE users 
+                SET 
+                    matches_played = matches_played + @matchesPlayedIncrement,
+                    wins = wins + @winsIncrement,
+                    losses = losses + @lossesIncrement,
+                    total_score = total_score + @totalScoreIncrement
+                WHERE 
+                    username = @username";
+
+                cmd.Parameters.AddWithValue("@matchesPlayedIncrement", matchesPlayedIncrement);
+                cmd.Parameters.AddWithValue("@winsIncrement", winsIncrement);
+                cmd.Parameters.AddWithValue("@lossesIncrement", lossesIncrement);
+                cmd.Parameters.AddWithValue("@totalScoreIncrement", totalScoreIncrement);
                 cmd.Parameters.AddWithValue("@username", username);
+
                 cmd.ExecuteNonQuery();
             }
         }
     }
+
 
     public UserProfile? GetUserProfile(string username)
     {

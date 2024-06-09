@@ -160,11 +160,10 @@ namespace Try
         [ServerRpc]
         private void RestartServerRpc()
         {
-            var levelControl = FindObjectOfType<SpawnRealPlayer>();
+            var levelControl = FindObjectOfType<LevelController>();
             
             if (levelControl != null)
             {
-                Debug.Log("Found Level Controller!");
                 StartCoroutine(levelControl.Restart(fruit));
             }
         }
