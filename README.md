@@ -14,6 +14,8 @@ The game makes use of Unity Netcode for Gameobjects for connectivity, and SQlite
 
 ## Structure
 
+Each scene in Duality has an entry point component sitting on a root-level GameObject that serves as a scene-specific menu manager of sorts.
+
 ### Login
 
 Upon start of the game, the players are presented with the option to:
@@ -216,6 +218,8 @@ Although an enjoyable project, I have faced some difficulties on the making of t
 - Implementing a hosting lobby.
   - This was implemented almost to its full completion in earlier versions, following the Galactic Kittens educational demo (referenced in the Bibliography) sample. However, since it didn't properly fit the game, as we only have two players, the need for a lobby was insignificant, so it was removed from the final version.
   - The educational demo is still cited in the Bibliography, as reading through its Github repository provided some valuable insights on how to best structure the game to use _Netcode_.
+- Full code separation on Client/Server
+  - Although some of it still managed to make it into the final version with, full separation, while definitely more valuable in a real case scenario, made the code be full of callbacks, which made some parts of the code that should be trivial, too complex. Furthermore, separating the code into Client/Server classes required implementing bridges and abstractions, which would further complicate already tightly coupled classes. For these reasons, this approach was scrapped.
 
 ## Bibliography
 
