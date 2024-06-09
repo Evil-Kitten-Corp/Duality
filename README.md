@@ -204,6 +204,10 @@ cmd.CommandText = @"
                     username = @username";
 ```
 
+## Network Architecture
+
+[TBI]
+
 ## Considerations
 
 Although an enjoyable project, I have faced some difficulties on the making of this project. Below are some of the key attempts and considerations:
