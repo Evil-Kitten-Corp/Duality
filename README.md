@@ -1,7 +1,7 @@
 # Duality
 ![Unity Version](https://img.shields.io/badge/Unity-2022.3.20f1-blue)
 [![Made with Unity](https://img.shields.io/badge/Made%20with-Unity-57b9d3.svg?style=flat&logo=unity)](https://unity3d.com)
-![GitHub](https://img.shields.io/github/license/Evil-Kitten-Corp/Duality)
+[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 
 ## The Game
 
