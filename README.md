@@ -1,32 +1,55 @@
-# DUALITY
+# Duality
+![Unity Version](https://img.shields.io/badge/Unity-2022.3.20f1-blue)
+[![Made with Unity](https://img.shields.io/badge/Made%20with-Unity-57b9d3.svg?style=flat&logo=unity)](https://unity3d.com)
+![GitHub](https://img.shields.io/github/license/Evil-Kitten-Corp/Duality)
 
 ## The Game
 
-Duality is a two-player LAN online co-op game, where one player plays as Strawberry Boy and another plays as Banana Boy. Each player's goal through the levels is to collect fruits of their own type and reach the winning spot with their partner without dying (stepping into the other's territory or colliding with traps).
+**Duality** is a two-player LAN online co-op game where one player plays as **Strawberry Boy** and the other as **Banana Boy**. Each player's goal is to collect fruits of their own type and reach the winning spot with their partner without dying (by stepping into the other's territory or colliding with traps).
 
-The game makes use of Unity Netcode for Gameobjects for connectivity, and SQlite for the profile database.
+The game uses **Unity Netcode for GameObjects** for networking and **SQLite** for profile database management.
 
 Tema usado: 
 - Unity Netcode for Game Objects
   - (4) Implementar um jogo de acção, cliente/servidor, com login
 
+## Table of Contents
+
+- [The Game](#the-game)
+- [Services Implemented](#services-implemented)
+- [Structure](#structure)
+  - [Login](#login)
+  - [Server, Client, Host](#server-client-host)
+- [Procedure](#procedure)
+  - [Database](#database)
+  - [Spawning](#spawning)
+  - [Increasing the Scores](#increasing-the-scores)
+  - [Winning / Losing](#winning--losing)
+- [Network Architecture](#network-architecture)
+- [Game Scene Flow Architecture](#game-scene-flow-architecture)
+- [Considerations](#considerations)
+- [License](#license)
+- [Bibliography](#bibliography)
 
 # Services implemented:
-- [Netcode for GameObjects](https://unity.com/pt/products/netcode)
-
-  > Unity library used to synchronize GameObject and game state data across all clients that connect in a networking session.
-
+- [Netcode for GameObjects](https://unity.com/pt/products/netcode)  
+  Unity library used to synchronize GameObject and game state data across all clients in a networking session.
 
 ## Structure
 
 Each scene in Duality has an entry point component sitting on a root-level GameObject that serves as a scene-specific menu manager of sorts.
 
+---
+
 ### Login
 
-Upon start of the game, the players are presented with the option to:
-- Login
-- Signup
-- Play as a Guest
+Upon starting the game, players can choose to:
+
+- **Login** – Verifies credentials in the SQLite database and loads the profile if valid.
+- **Signup** – Creates a new account if the chosen username is not already taken.
+- **Play as a Guest** – Allows gameplay without saving progress or accessing the profile screen.
+
+A logged-in player has access to their progression and stats via a profile icon in the main menu.
 
 Choosing to ___Login___ will lookup the input put by the player in the *Username* and *Password* fields on the SQlite database. If the data matches any entry, then the profile information is sent back and sends the player to the main menu successfully.
 
@@ -36,24 +59,28 @@ Both these options will make it so that a profile icon in the main menu is shown
 
 Choosing to ___Play as a Guest___ will simply take the player to the main menu. The player won't have access into the profile screen, and their progress will not be saved.
 
+---
+
 ### Server, Client, Host
 
-On the main menu, the player can choose to connect using one of three modes:
-- Server
-- Host
-- Client
+In the main menu, players can choose one of three modes:
 
-If selecting *Client* without a server or host already running, nothing will happen.
+- **Server**
+- **Host**
+- **Client** (requires a running server or host to connect)
+
+If selecting *Client* without a server or host active, nothing happens.
 
 ## Procedure
 
 ### Database
 
-Our SQlite database is controlled by `DatabaseManager`.
-- Upon start of the application, it will try to locate the `unity.db` file in Application.persistentDataPath.
-- If not located, it will create one.
+The SQLite database is managed by `DatabaseManager`:
 
-If we were using a dedicated server to host the database (as we should in a real case scenario), `DatabaseManager` would instead try to connect to the server by its URI and send its queries to it. If the server couldn't detect the database, it would log an error.
+- Attempts to locate `unity.db` in `Application.persistentDataPath`.
+- If missing, it creates a new one.
+
+If we were using a dedicated server to host the database (as we should in a real world case scenario), `DatabaseManager` would instead try to connect to the server by its URI and send its queries to it. If the server couldn't detect the database, it would log an error.
 
 In any case, the process of creating a new database is expedited by the SQlite .dll libraries for .NET and Unity:
 
@@ -85,6 +112,8 @@ void CreateDatabase()
 }
 ```
 
+---
+
 ### Spawning
 
 Upon joining a game with a Server or Host already running:
@@ -104,6 +133,8 @@ Upon joining a game with a Server or Host already running:
     ```
 
 It is possible for a third player to join a Host session (or a fourth to join a Server session). In fact, there is no restriction on how many clients can join. However, no player object will be spawned for them, and they will effectively only be considered an observer/spectator.
+
+---
 
 ### Increasing the Scores
 
@@ -136,6 +167,8 @@ During the level, the players can increase their score by collecting fruits of t
       SyncScoreClientRpc(team);
   }
   ```
+
+---
 
 ### Winning / Losing
 
@@ -221,7 +254,7 @@ cmd.CommandText = @"
 
 ## Considerations
 
-Although an enjoyable project to make, I have faced some difficulties on the making of this project. Below are some of the key attempts and considerations:
+This project was an enjoyable experiment, though it came with challenges. Below are some of the key attempts and considerations:
 - Creating a PHP server to use with MySQL for the login.
   - The initial plan included creating a PHP server to handle user login through MySQL. Due to unfamiliarity with the PHP language itself and also due to the complexity it would put on the user to run (e.g., the user would have to install PHP, configure a local server, install MySQL, manage a server database, and update the PHP script with the correct local MySQL credentials or alter them to fit the script), this approach was ultimately abandoned.
 - Implementing a hosting lobby.
@@ -229,6 +262,10 @@ Although an enjoyable project to make, I have faced some difficulties on the mak
   - The educational demo is still cited in the Bibliography, as reading through its Github repository provided some valuable insights on how to best structure the game to use _Netcode_.
 - Full code separation on Client/Server
   - Although some of it still managed to make it into the final version, full separation, while definitely more valuable in a real case scenario, made the code be full of callbacks, which made some parts of the code that should be trivial, too complex. Furthermore, separating the code into Client/Server classes led to the surge of too many circular dependencies, which would further complicate already tightly coupled classes. For these reasons, this approach was scrapped.
+ 
+## License
+
+This project is released under the **Unlicense**. You are free to use, modify, distribute, and do whatever you want with this project. No attribution required. For full details, see the [LICENSE](LICENSE) file.
 
 ## Bibliography
 
